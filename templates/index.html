@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings Call Nonsense Detector 🎯</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=5.0">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebarToggle" class="sidebar-toggle" title="Show Raw Response">
+            Raw Response
+        </button>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>Raw Anthropic Response</h3>
+                <button id="sidebarClose" class="sidebar-close">&times;</button>
+            </div>
+            <div class="sidebar-content">
+                <div id="rawResponse" class="raw-response">
+                    <p class="placeholder">No analysis performed yet. Run an analysis to see the raw Anthropic response here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+        <header>
+            <h1>🎯 Earnings Call Nonsense Detector</h1>
+            <p class="tagline">Cutting through corporate speak to find the real story</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Transcript Selection Section -->
+            <section class="card">
+                <h2>Select Earnings Call</h2>
+                
+                <div class="select-wrapper">
+                    <select id="transcriptSelect">
+                        <option value="">Choose a sample transcript...</option>
+                    </select>
+                </div>
+
+                <div class="or-divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="customTranscript">Paste your own transcript:</label>
+                    <textarea 
+                        id="customTranscript" 
+                        placeholder="Paste earnings call transcript here...&#10;&#10;OPERATOR: Welcome to...&#10;CEO: Thank you for joining us..."
+                        rows="8"
+                    ></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="companyName" placeholder="e.g., Apple Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="quarter">Quarter:</label>
+                        <input type="text" id="quarter" placeholder="e.g., Q4 2024">
+                    </div>
+                </div>
+
+                <button id="analyzeBtn" class="btn-primary">
+                    <span class="btn-text">Analyze Transcript</span>
+                    <span class="btn-loader" style="display: none;">⏳ Analyzing...</span>
+                </button>
+
+                <div id="quickScanResult" class="quick-scan" style="display: none;">
+                    <strong>Quick Scan:</strong> <span id="scanText"></span>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="card results-section" style="display: none;">
+                <h2>Analysis Results</h2>
+
+                <!-- Summary Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card confidence">
+                        <div class="stat-label">Confidence Score</div>
+                        <div class="stat-value" id="confidenceScore">--</div>
+                        <div class="stat-subtitle">Higher is better</div>
+                    </div>
+                    <div class="stat-card risk">
+                        <div class="stat-label">Risk Level</div>
+                        <div class="stat-value" id="riskLevel">--</div>
+                        <div class="stat-subtitle">Overall assessment</div>
+                    </div>
+                    <div class="stat-card health">
+                        <div class="stat-label">Health Score</div>
+                        <div class="stat-value" id="healthScore">--</div>
+                        <div class="stat-subtitle">Combined metric</div>
+                    </div>
+                </div>
+
+                <!-- Overall Assessment -->
+                <div class="assessment-box">
+                    <h3>Overall Assessment</h3>
+                    <p id="overallAssessment">--</p>
+                </div>
+
+                <!-- Detailed Analysis Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="hedging">
+                        🚩 Hedging Language (<span id="hedgingCount">0</span>)
+                    </button>
+                    <button class="tab-btn" data-tab="concerns">
+                        ⚠️ Key Concerns (<span id="concernsCount">0</span>)
+                    </button>
+                    <button class="tab-btn" data-tab="dodging">
+                        🎭 Question Dodging (<span id="dodgingCount">0</span>)
+                    </button>
+                    <button class="tab-btn" data-tab="positive">
+                        ✅ Positive Signals
+                    </button>
+                    <button class="tab-btn" data-tab="transcript">
+                        📄 Highlighted Transcript
+                    </button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Hedging Language Tab -->
+                    <div id="hedging-tab" class="tab-pane active">
+                        <div id="hedgingList" class="findings-list"></div>
+                    </div>
+
+                    <!-- Key Concerns Tab -->
+                    <div id="concerns-tab" class="tab-pane">
+                        <div id="concernsList" class="findings-list"></div>
+                    </div>
+
+                    <!-- Question Dodging Tab -->
+                    <div id="dodging-tab" class="tab-pane">
+                        <div id="dodgingList" class="findings-list"></div>
+                    </div>
+
+                    <!-- Positive Signals Tab -->
+                    <div id="positive-tab" class="tab-pane">
+                        <div id="positiveList" class="findings-list"></div>
+                    </div>
+
+                    <!-- Highlighted Transcript Tab -->
+                    <div id="transcript-tab" class="tab-pane">
+                        <div class="transcript-legend">
+                            <span class="legend-item">
+                                <span class="highlight-hedge">Hedging Language</span>
+                            </span>
+                            <span class="legend-item">
+                                <span class="highlight-dodge">Possible Dodging</span>
+                            </span>
+                        </div>
+                        <div id="highlightedTranscript" class="highlighted-transcript"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="errorSection" class="card error-card" style="display: none;">
+                <h3>⚠️ Error</h3>
+                <p id="errorMessage"></p>
+            </section>
+        </div>
+
+        <footer>
+            <p class="disclaimer">For educational purposes only. Not financial advice.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
