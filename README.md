@@ -77,7 +77,7 @@ This is particularly relevant in financial services for:
 1. **Clone the repository**
 ```bash
 git clone <your-repo-url>
-cd earnings-bs-detector
+cd earnings-nonsense-detector
 ```
 
 2. **Create virtual environment**
@@ -160,7 +160,7 @@ If I were to continue building this out, here's what I'd add next:
 ## Project Structure
 
 ```
-earnings-bs-detector/
+earnings-nonsense-detector/
 ├── app.py                 # Flask application and API endpoints
 ├── analyzer.py           # Core LLM analysis logic
 ├── sample_data.py        # Sample earnings call transcripts

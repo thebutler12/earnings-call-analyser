@@ -56,7 +56,7 @@ GitHub Codespaces provides a cloud-based development environment that's perfect 
 ```bash
 # Clone repository
 git clone <repo-url>
-cd earnings-bs-detector
+cd earnings-nonsense-detector
 
 # Run setup script
 chmod +x setup.sh
@@ -98,8 +98,8 @@ CMD ["python", "app.py"]
 Build and run:
 
 ```bash
-docker build -t earnings-bs-detector .
-docker run -p 5000:5000 --env-file .env earnings-bs-detector
+docker build -t earnings-nonsense-detector .
+docker run -p 5000:5000 --env-file .env earnings-nonsense-detector
 ```
 
 ## Cloud Platforms
@@ -113,7 +113,7 @@ docker run -p 5000:5000 --env-file .env earnings-bs-detector
 
 2. Deploy:
    ```bash
-   heroku create earnings-bs-detector
+   heroku create earnings-nonsense-detector
    heroku config:set ANTHROPIC_API_KEY=your_key_here
    git push heroku main
    ```
@@ -132,7 +132,7 @@ docker run -p 5000:5000 --env-file .env earnings-bs-detector
 
 3. Deploy:
    ```bash
-   gcloud run deploy earnings-bs-detector \
+   gcloud run deploy earnings-nonsense-detector \
      --source . \
      --platform managed \
      --region us-central1 \
@@ -150,8 +150,8 @@ docker run -p 5000:5000 --env-file .env earnings-bs-detector
 
 2. Deploy:
    ```bash
-   eb init -p python-3.11 earnings-bs-detector
-   eb create earnings-bs-detector-env
+   eb init -p python-3.11 earnings-nonsense-detector
+   eb create earnings-nonsense-detector-env
    eb setenv ANTHROPIC_API_KEY=your_key_here
    eb deploy
    ```

@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 ## Project Structure
 
 ```
-earnings-bs-detector/
+earnings-nonsense-detector/
 ├── app.py                  # Flask application
 ├── analyzer.py            # LLM analysis logic
 ├── sample_data.py         # Sample transcripts

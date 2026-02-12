@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earnings Call Nonsense Detector 🎯</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=5.0">
 </head>
+
 <body>
     <div class="container">
         <!-- Sidebar Toggle Button -->
@@ -21,7 +23,8 @@
             </div>
             <div class="sidebar-content">
                 <div id="rawResponse" class="raw-response">
-                    <p class="placeholder">No analysis performed yet. Run an analysis to see the raw Anthropic response here.</p>
+                    <p class="placeholder">No analysis performed yet. Run an analysis to see the raw Anthropic response
+                        here.</p>
                 </div>
             </div>
         </div>
@@ -37,7 +40,7 @@
             <!-- Transcript Selection Section -->
             <section class="card">
                 <h2>Select Earnings Call</h2>
-                
+
                 <div class="select-wrapper">
                     <select id="transcriptSelect">
                         <option value="">Choose a sample transcript...</option>
@@ -50,11 +53,9 @@
 
                 <div class="form-group">
                     <label for="customTranscript">Paste your own transcript:</label>
-                    <textarea 
-                        id="customTranscript" 
+                    <textarea id="customTranscript"
                         placeholder="Paste earnings call transcript here...&#10;&#10;OPERATOR: Welcome to...&#10;CEO: Thank you for joining us..."
-                        rows="8"
-                    ></textarea>
+                        rows="8"></textarea>
                 </div>
 
                 <div class="form-row">
@@ -176,4 +177,5 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
