@@ -1,4 +1,4 @@
-# Earnings Call Nonsense Detector 🎯
+# Earnings Call Analyser 🎯
 
 A proof-of-concept application that uses LLMs to analyze earnings call transcripts and identify potential red flags, hedging language, and inconsistencies that might indicate management uncertainty or misdirection.
 
@@ -77,7 +77,7 @@ This is particularly relevant in financial services for:
 1. **Clone the repository**
 ```bash
 git clone <your-repo-url>
-cd earnings-nonsense-detector
+cd earnings-call-analyser
 ```
 
 2. **Create virtual environment**
@@ -160,7 +160,7 @@ If I were to continue building this out, here's what I'd add next:
 ## Project Structure
 
 ```
-earnings-nonsense-detector/
+earnings-call-analyser/
 ├── app.py                 # Flask application and API endpoints
 ├── analyzer.py           # Core LLM analysis logic
 ├── sample_data.py        # Sample earnings call transcripts

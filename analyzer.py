@@ -34,51 +34,55 @@ class TranscriptAnalyzer:
         # Build comprehensive analysis prompt
         analysis_prompt = f"""You are an expert financial analyst reviewing an earnings call transcript for {company_name} ({quarter}). 
 
-Analyze this transcript and identify potential red flags, hedging language, and areas of concern that might indicate:
-- Management uncertainty or lack of confidence
-- Evasive answers to analyst questions
-- Vague or non-committal language
-- Potential risks being downplayed
-- Inconsistencies or contradictions
+Analyze this transcript and identify potential red flags, hedging language, and areas of concern.
 
-Please provide your analysis in the following JSON format. IMPORTANT: Escape all quotes inside string values using backslashes (\\"):
+CRITICAL: Return ONLY valid JSON. Do NOT use quotation marks or apostrophes inside your text values. Rephrase to avoid them.
+
+Example of GOOD formatting:
+"reason": "The phrase indicates uncertainty about future performance"
+
+Example of BAD formatting (DO NOT DO THIS):
+"reason": "The phrase "we believe" indicates uncertainty"
+
+Return your analysis in this exact JSON format:
 
 {{
-  "confidence_score": <0-100, where 100 is most confident/transparent and 0 is most concerning/evasive>,
-  "overall_assessment": "<2-3 sentence summary of management credibility and transparency>",
+  "confidence_score": 75,
+  "overall_assessment": "Brief summary here without any quotes",
   "hedging_language": [
     {{
-      "phrase": "<the hedging phrase found>",
-      "context": "<surrounding sentence for context>",
-      "severity": "<low|medium|high>",
-      "reason": "<why this is a red flag>"
+      "phrase": "we believe",
+      "context": "Surrounding text without quotes",
+      "severity": "medium",
+      "reason": "Explanation without quotes"
     }}
   ],
   "key_concerns": [
     {{
-      "concern": "<title of the concern>",
-      "description": "<detailed explanation>",
-      "evidence": "<quote from transcript>",
-      "impact": "<potential impact on investors>"
+      "concern": "Title here",
+      "description": "Details without quotes",
+      "evidence": "Paraphrased evidence without quotes",
+      "impact": "Impact description"
     }}
   ],
   "question_dodging": [
     {{
-      "question": "<analyst question>",
-      "answer": "<management response>",
-      "analysis": "<how they dodged or deflected>"
+      "question": "The analyst question",
+      "answer": "Management response",
+      "analysis": "Your analysis without quotes"
     }}
   ],
   "positive_signals": [
-    "<any transparent or confidence-inspiring moments>"
+    "Positive point one",
+    "Positive point two"
   ],
-  "risk_level": "<LOW|MEDIUM|HIGH>"
+  "risk_level": "MEDIUM"
 }}
 
 TRANSCRIPT:
 {transcript_text}
 
-Remember to be thorough but fair - look for genuine red flags, not normal business language. Focus on patterns that might indicate management is being less than forthcoming. CRITICAL: Always escape quotes in your JSON strings using backslashes."""
+Remember: NO quotes or apostrophes inside your text values. Rephrase everything."""
 
         try:
             logger.info(f"Starting analysis for {company_name} ({quarter})")
@@ -113,43 +117,87 @@ Remember to be thorough but fair - look for genuine red flags, not normal busine
             if json_match:
                 import json
                 logger.info("✅ Found JSON in response, parsing...")
+                
+                json_text = json_match.group()
+                
                 try:
-                    result = json.loads(json_match.group())
+                    result = json.loads(json_text)
                     logger.info(f"✅ Successfully parsed JSON with keys: {list(result.keys())}")
                     # Add raw response to result
                     result['_raw_response'] = result_text
                 except json.JSONDecodeError as e:
                     logger.error(f"❌ JSON parsing failed: {str(e)}")
-                    logger.error(f"❌ Error at position {e.pos}: {json_match.group()[max(0, e.pos-50):e.pos+50]}")
-                    # Try to fix common JSON issues
-                    json_text = json_match.group()
+                    logger.error(f"❌ Error at position {e.pos}: {json_text[max(0, e.pos-50):e.pos+50]}")
                     
-                    # Fix unescaped quotes in strings - more comprehensive approach
-                    # Replace quotes that are inside string values but not properly escaped
-                    
-                    # Find all string values and fix quotes within them
-                    def fix_quotes_in_strings(match):
-                        content = match.group(1)
-                        # Escape any unescaped quotes inside the string
-                        fixed_content = content.replace('\\"', '___ESCAPED_QUOTE___')  # Temporarily replace already escaped quotes
-                        fixed_content = fixed_content.replace('"', '\\"')  # Escape all quotes
-                        fixed_content = fixed_content.replace('___ESCAPED_QUOTE___', '\\"')  # Restore escaped quotes
-                        return f'"{fixed_content}"'
-                    
-                    # Apply the fix to all string values
-                    json_text = re.sub(r'"([^"]*(?:\\"[^"]*)*)"', fix_quotes_in_strings, json_text)
-                    
+                    # Simpler approach: Use a more lenient parser
                     try:
-                        result = json.loads(json_text)
+                        # Try to fix by replacing quotes in a smarter way
+                        # Look for patterns like: "text": "value with "quotes" inside"
+                        # and replace inner quotes with single quotes
+                        
+                        # Pattern to match JSON string values
+                        # This finds "key": "value" pairs
+                        def fix_value(match):
+                            key = match.group(1)
+                            value = match.group(2)
+                            # Replace quotes inside the value with single quotes
+                            fixed_value = value.replace('"', "'")
+                            return f'"{key}": "{fixed_value}"'
+                        
+                        # Match "key": "value" where value might contain quotes
+                        # This pattern is more careful about what it matches
+                        pattern = r'"([^"]+)":\s*"([^"]*(?:"[^"]*)*)"'
+                        
+                        # Try multiple passes to fix nested issues
+                        fixed_json = json_text
+                        for _ in range(3):  # Try up to 3 passes
+                            try:
+                                # Test if it parses
+                                json.loads(fixed_json)
+                                break
+                            except:
+                                # Try to fix more
+                                # Simple approach: find ": " followed by quoted text and fix internal quotes
+                                lines = fixed_json.split('\n')
+                                fixed_lines = []
+                                for line in lines:
+                                    if '": "' in line and line.count('"') > 4:
+                                        # This line likely has quotes inside a value
+                                        # Find the value part after ": "
+                                        parts = line.split('": "', 1)
+                                        if len(parts) == 2:
+                                            key_part = parts[0] + '": "'
+                                            value_part = parts[1]
+                                            # Find the closing quote (last quote before comma or end)
+                                            if value_part.endswith('",') or value_part.endswith('"'):
+                                                # Replace internal quotes with single quotes
+                                                if value_part.endswith('",'):
+                                                    value_content = value_part[:-2]
+                                                    value_content = value_content.replace('"', "'")
+                                                    line = key_part + value_content + '",'
+                                                else:
+                                                    value_content = value_part[:-1]
+                                                    value_content = value_content.replace('"', "'")
+                                                    line = key_part + value_content + '"'
+                                    fixed_lines.append(line)
+                                fixed_json = '\n'.join(fixed_lines)
+                        
+                        result = json.loads(fixed_json)
                         logger.info("✅ Successfully parsed JSON after fixing quotes")
-                        # Add raw response to result
                         result['_raw_response'] = result_text
                     except Exception as fix_error:
                         logger.warning(f"❌ Could not fix JSON: {fix_error}")
+                        # Last resort: return a simplified result with the raw response
                         result = {
                             "error": "Could not parse analysis - JSON syntax error",
                             "raw_response": result_text,
-                            "confidence_score": 50,  # Default fallback
+                            "confidence_score": 50,
+                            "overall_assessment": "Analysis completed but JSON parsing failed. Check raw response for details.",
+                            "hedging_language": [],
+                            "key_concerns": [],
+                            "question_dodging": [],
+                            "positive_signals": [],
+                            "risk_level": "UNKNOWN",
                             "_raw_response": result_text
                         }
             else:

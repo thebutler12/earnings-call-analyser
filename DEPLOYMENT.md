@@ -1,8 +1,8 @@
 # Deployment Guide
 
-This guide covers deploying the Earnings Call Nonsense Detector to various platforms.
+This guide covers deploying the Earnings Call Analyser to various platforms.
 
-## GitHub Codespaces (Recommended for Demo)
+## GitHub Codespaces (Demo purposes)
 
 GitHub Codespaces provides a cloud-based development environment that's perfect for demos and testing.
 
@@ -47,16 +47,16 @@ GitHub Codespaces provides a cloud-based development environment that's perfect 
 
 ## Local Development
 
-### Prerequisites
+### Prerequisites (see requirements.txt)
 - Python 3.9+
 - pip
-- Git
+- git
 
 ### Setup
 ```bash
 # Clone repository
 git clone <repo-url>
-cd earnings-nonsense-detector
+cd earnings-call-analyser
 
 # Run setup script
 chmod +x setup.sh
@@ -71,6 +71,9 @@ cp .env.example .env
 
 # Run application
 python app.py
+
+# Change Port if 5000 in use
+PORT=5001 python app.py
 
 # Open browser
 # Navigate to http://localhost:5000
@@ -98,8 +101,8 @@ CMD ["python", "app.py"]
 Build and run:
 
 ```bash
-docker build -t earnings-nonsense-detector .
-docker run -p 5000:5000 --env-file .env earnings-nonsense-detector
+docker build -t earnings-call-analyser .
+docker run -p 5000:5000 --env-file .env earnings-call-analyser
 ```
 
 ## Cloud Platforms
@@ -113,7 +116,7 @@ docker run -p 5000:5000 --env-file .env earnings-nonsense-detector
 
 2. Deploy:
    ```bash
-   heroku create earnings-nonsense-detector
+   heroku create earnings-call-analyser
    heroku config:set ANTHROPIC_API_KEY=your_key_here
    git push heroku main
    ```
@@ -132,7 +135,7 @@ docker run -p 5000:5000 --env-file .env earnings-nonsense-detector
 
 3. Deploy:
    ```bash
-   gcloud run deploy earnings-nonsense-detector \
+   gcloud run deploy earnings-call-analyser \
      --source . \
      --platform managed \
      --region us-central1 \
@@ -150,8 +153,8 @@ docker run -p 5000:5000 --env-file .env earnings-nonsense-detector
 
 2. Deploy:
    ```bash
-   eb init -p python-3.11 earnings-nonsense-detector
-   eb create earnings-nonsense-detector-env
+   eb init -p python-3.11 earnings-call-analyser
+   eb create earnings-call-analyser-env
    eb setenv ANTHROPIC_API_KEY=your_key_here
    eb deploy
    ```

@@ -1,5 +1,5 @@
 {
-  "name": "Earnings Nonsense Detector",
+  "name": "Earnings Call Analyser",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {
     "ghcr.io/devcontainers/features/python:1": {

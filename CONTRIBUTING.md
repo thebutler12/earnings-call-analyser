@@ -1,4 +1,4 @@
-# Contributing to Earnings Call Nonsense Detector
+# Contributing to Earnings Call Analyser
 
 Thank you for your interest in contributing! This guide will help you get started.
 
@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 ## Project Structure
 
 ```
-earnings-nonsense-detector/
+earnings-call-analyser/
 ├── app.py                  # Flask application
 ├── analyzer.py            # LLM analysis logic
 ├── sample_data.py         # Sample transcripts

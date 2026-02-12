@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "================================================"
-echo "  Earnings Call Nonsense Detector - Setup"
+echo "  Earnings Call Analyser - Setup"
 echo "================================================"
 echo ""
 

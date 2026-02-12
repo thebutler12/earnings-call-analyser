@@ -1,0 +1,15 @@
+# Testing dependencies for Earnings Call Analyser
+
+# Core testing framework (included in Python standard library)
+# unittest
+
+# Optional: Enhanced testing tools
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.1
+
+# Optional: Code coverage
+coverage>=7.3.0
+
+# Optional: Test fixtures and mocking
+responses>=0.23.0

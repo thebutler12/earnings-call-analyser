@@ -1,5 +1,5 @@
 """
-Flask application for Earnings Call Nonsense Detector.
+Flask application for Earnings Call Analyser.
 Provides web UI and API endpoints for transcript analysis.
 """
 
@@ -207,7 +207,7 @@ if __name__ == '__main__':
     
     print(f"""
     ╔════════════════════════════════════════════════════════════╗
-    ║  Earnings Call Nonsense Detector                          ║
+    ║  Earnings Call Analyser                                   ║
     ║  Starting on http://localhost:{port}                         ║
     ╚════════════════════════════════════════════════════════════╝
     """)

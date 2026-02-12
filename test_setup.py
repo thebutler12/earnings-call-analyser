@@ -133,7 +133,7 @@ def test_analyzer():
 def run_all_tests():
     """Run all tests"""
     print("=" * 60)
-    print("  Earnings Call Nonsense Detector - Test Suite")
+    print("  Earnings Call Analyser - Test Suite")
     print("=" * 60)
     
     tests = [
