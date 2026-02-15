@@ -26,19 +26,6 @@ This application analyzes earnings call transcripts to help investors cut throug
 - **Question Dodging**: Highlights when executives give non-answers to analyst questions
 - **Visual Timeline**: Shows sentiment and confidence trends across different sections of the call
 
-## Why I Built This
-
-Earnings calls are critical for investment decisions, but they're often filled with carefully crafted language designed to manage perceptions. This tool helps investors:
-- Save time by highlighting the most important red flags
-- Spot patterns of evasive language
-- Get an AI-powered "second opinion" on management credibility
-- Compare language patterns across quarters (future enhancement)
-
-This is particularly relevant in financial services for:
-- Equity research teams doing due diligence
-- Risk assessment of portfolio companies
-- Automated screening of multiple companies at scale
-
 ## Architecture & Design Decisions
 
 ### Technology Stack
@@ -73,6 +60,7 @@ This is particularly relevant in financial services for:
    - Reduces complexity for Codespaces deployment
    - No build step or npm dependencies for frontend
    - Faster iteration during development
+   - For Production we'd use UI Framework such as NextJS.
 
 ### Trade-offs
 
@@ -147,7 +135,7 @@ If I were to continue building this out, here's what I'd add next:
 - **Company Database**: Store analyzed transcripts for trend analysis
 - **Export Reports**: Generate PDF reports of analysis for sharing
 - **More Data Sources**: Integrate SEC EDGAR API for automatic transcript fetching
-- **Batch Processing**: Analyze multiple companies simultaneously
+- **Batch Processing**: Analyze and compare multiple companies simultaneously
 
 ### Medium-term (1-2 months)
 - **Multi-Agent Debate**: Create "bull" and "bear" analyst agents that debate the transcript
@@ -165,8 +153,8 @@ If I were to continue building this out, here's what I'd add next:
 
 ### Technical Improvements
 - **Caching Layer**: Redis for caching analysis results
-- **Async Processing**: Celery for background job processing
-- **Testing Suite**: Comprehensive unit and integration tests
+- **Async Processing**: Celery, Azure Logic Apps, AWS Step Functions for background job processing
+- **Testing Suite**: Comprehensive integration tests
 - **Production Deployment**: Docker containerization, CI/CD pipeline
 - **Authentication**: User accounts and API key management
 - **Rate Limiting**: Protect against API abuse
@@ -202,4 +190,4 @@ MIT License - feel free to use this for your own projects!
 
 ## Acknowledgments
 
-Built as a technical exercise for an Innovation Engineer role. Thanks to the team for the creative freedom to explore this idea!
+Built as a technical exercise for an Innovation Engineer role.
