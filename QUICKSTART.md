@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide
+# Quick Start Guide
 
 Get up and running in 5 minutes!
 
@@ -23,7 +23,7 @@ Get up and running in 5 minutes!
    python app.py
    ```
    - Click "Open in Browser" when port forwarding notification appears
-   - Done! 🎉
+   - Done!
 
 ## For Local Development
 
@@ -108,4 +108,4 @@ If asked "What would you build next?", refer to the "Next Steps" section in READ
 - API endpoints
 - Database integration
 
-Good luck! 🎯
+Good luck!

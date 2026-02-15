@@ -84,4 +84,4 @@ class TestAnalyzer(unittest.TestCase):
 
 Open an issue for discussion before starting major work.
 
-Happy coding! 🎯
+Happy coding!

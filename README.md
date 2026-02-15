@@ -1,4 +1,18 @@
-# Earnings Call Analyser 🎯
+# Innovation Engineer Assignment
+
+I have recently been experimenting with the Kiro IDE from AWS. I thought I would put it through its paces and attempt to vibe code a solution for this assignment. I decided on a simple use case of a "Transcript Analyser" for company earnings calls using Anthropic's Haiku model (purely chosen for cost reasons and could easily be swapped out to a more comprehesive reasoning model for production deployments). This use case is bread and butter for most LLMs out their today but from a developer/engineer perspective it was important to make sure that I approached it as an "experiment" with Kiro and didn't want the use case to be overly complicated. I was impressed on the whole with Kiro and it's ability to get me to the point where I had a well-documented application and a clear understanding of how I could take it to production. It was very good at debugging issues that I would have taken 20-30 mins to figure out an refactor/fix in a couple of minutes. 
+
+The Anthropic Prompt that the API is calling on the Haiku model is provided in the llm-prompt.md file if you want to take a look at it. It was mostly create by AI, but with improvements made by myself around the output formatting that was causing problems with the parsing in the Python code.
+
+To get up and running there is a QUICKSTART.md that can be followed to get the solution up and running both on your local machine or within Codespaces. There is a requirement for an Anthropic API key. I can provide this for testing purposes or you can swap in for your own if you have one. It must be able to leverage the latest Haiku model in your Anthropic subscription.
+
+## My Approach
+
+I approached this as I would any new experiment. I provided Kiro with the context of the idea and kept my ask simple and built the complexity over time. I wanted to ensure that I had a solution that could be demoed and explained easily (in this case, in an interview scenario). I then worked on defining the architecture of the solution and how it could be taken to a cloud-native productionised workload in future. My time as a Solutions Architect came in very handy for describing how to get the project into production in a secure, cost-effective, and scalable manner. Having the solid engineering experience to experiment and build quickly is incredibly important for the Innovation Engineer role, but also having the architect experience to take a solution to production is often difficult to find, especially in Guernsey.
+
+My time as a Solutions Engineer AWS taught me an important aspect of innovation, start simple and communicate the idea as soon as possible. Their PRFAQ process was built with innovation in mind. You had to envision the press release for your solution before you started developing it.  This would then make its way through their internal, low goverance process to be prioritised for further development. There was an emphasis on making sure that any decisions on a solution were treated as "two-way door decisions" meaning that if you go one way, you can quickly come back and try the other way without slowing down the pace of innovation. With the emergence of AI coding companions this is even more important as it is very easy to get lost in an idea and try to make it perfect straight away. To be truly innovative in this era, is to ensure that your ideas are coming back to the customer as often as possible to work backwards from their initial pain points and problems, rather than trying to invent something you think they might want. 
+
+# Earnings Call Analyser
 
 A proof-of-concept application that uses LLMs to analyze earnings call transcripts and identify potential red flags, hedging language, and inconsistencies that might indicate management uncertainty or misdirection.
 
@@ -76,7 +90,7 @@ This is particularly relevant in financial services for:
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/thebutler12/earnings-call-analyser.git
 cd earnings-call-analyser
 ```
 

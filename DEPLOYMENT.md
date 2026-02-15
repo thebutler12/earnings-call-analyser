@@ -13,7 +13,7 @@ GitHub Codespaces provides a cloud-based development environment that's perfect 
    git init
    git add .
    git commit -m "Initial commit"
-   git remote add origin <your-repo-url>
+   git remote add origin https://github.com/thebutler12/earnings-call-analyser.git
    git push -u origin main
    ```
 
@@ -39,11 +39,11 @@ GitHub Codespaces provides a cloud-based development environment that's perfect 
    - Click "Open in Browser" when prompted
 
 ### Features
-- ✅ Automatic dependency installation
-- ✅ Pre-configured Python environment
-- ✅ Port forwarding
-- ✅ VS Code in browser
-- ✅ Free tier available
+- Automatic dependency installation
+- Pre-configured Python environment
+- Port forwarding
+- VS Code in browser
+- Free tier available
 
 ## Local Development
 
@@ -55,7 +55,7 @@ GitHub Codespaces provides a cloud-based development environment that's perfect 
 ### Setup
 ```bash
 # Clone repository
-git clone <repo-url>
+git clone https://github.com/thebutler12/earnings-call-analyser.git
 cd earnings-call-analyser
 
 # Run setup script
@@ -73,7 +73,7 @@ cp .env.example .env
 python app.py
 
 # Change Port if 5000 in use
-PORT=5001 python app.py
+# PORT=5001 python app.py
 
 # Open browser
 # Navigate to http://localhost:5000
@@ -106,41 +106,6 @@ docker run -p 5000:5000 --env-file .env earnings-call-analyser
 ```
 
 ## Cloud Platforms
-
-### Heroku
-
-1. Create `Procfile`:
-   ```
-   web: python app.py
-   ```
-
-2. Deploy:
-   ```bash
-   heroku create earnings-call-analyser
-   heroku config:set ANTHROPIC_API_KEY=your_key_here
-   git push heroku main
-   ```
-
-### Google Cloud Run
-
-1. Add to `requirements.txt`:
-   ```
-   gunicorn==21.2.0
-   ```
-
-2. Create `Procfile`:
-   ```
-   web: gunicorn app:app
-   ```
-
-3. Deploy:
-   ```bash
-   gcloud run deploy earnings-call-analyser \
-     --source . \
-     --platform managed \
-     --region us-central1 \
-     --allow-unauthenticated
-   ```
 
 ### AWS Elastic Beanstalk
 
@@ -222,7 +187,7 @@ def analyze_transcript():
 
 ### Port Already in Use
 ```bash
-# Kill process on port 5000
+# Kill process on port 5000 (Care should be taken here in case the service/process is important)
 lsof -ti:5000 | xargs kill -9
 ```
 
@@ -251,11 +216,11 @@ python test_setup.py
 ```
 
 This will check:
-- ✅ All required files present
-- ✅ Dependencies installed
-- ✅ Environment variables set
-- ✅ Sample data loads
-- ✅ Analyzer initializes
+- All required files present
+- Dependencies installed
+- Environment variables set
+- Sample data loads
+- Analyzer initializes
 
 ## Support
 
