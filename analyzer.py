@@ -298,6 +298,7 @@ Remember: NO quotes or apostrophes inside your text values. Rephrase everything.
         }
         
         # Calculate overall health score (0-100)
+        # We could make the weighting configurable to tweak it to our needs later on.
         health_score = stats["confidence_score"]
         health_score -= stats["hedging_count"] * 2
         health_score -= stats["concerns_count"] * 5
