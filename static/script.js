@@ -167,12 +167,54 @@ function displayResults(data) {
     resultsSection.style.display = 'block';
     
     // Update stats
-    document.getElementById('confidenceScore').textContent = 
-        analysis.confidence_score || '--';
-    document.getElementById('riskLevel').textContent = 
-        analysis.risk_level || '--';
-    document.getElementById('healthScore').textContent = 
-        Math.round(stats.health_score) || '--';
+    const confidenceScore = analysis.confidence_score || 0;
+    const confidenceScoreElement = document.getElementById('confidenceScore');
+    confidenceScoreElement.textContent = confidenceScore || '--';
+    
+    // Apply color coding based on confidence score
+    const confidenceCard = confidenceScoreElement.closest('.stat-card');
+    confidenceCard.classList.remove('confidence-red', 'confidence-amber', 'confidence-green');
+    
+    if (confidenceScore > 75) {
+        confidenceCard.classList.add('confidence-green');
+    } else if (confidenceScore >= 50 && confidenceScore <= 75) {
+        confidenceCard.classList.add('confidence-amber');
+    } else if (confidenceScore < 50 && confidenceScore > 0) {
+        confidenceCard.classList.add('confidence-red');
+    }
+    
+    const riskLevel = (analysis.risk_level || '--').toString();
+    const riskLevelElement = document.getElementById('riskLevel');
+    riskLevelElement.textContent = riskLevel;
+    
+    // Apply color coding based on risk level
+    const riskCard = riskLevelElement.closest('.stat-card');
+    riskCard.classList.remove('risk-red', 'risk-amber', 'risk-green');
+    
+    const riskLevelLower = riskLevel.toLowerCase();
+    if (riskLevelLower === 'high') {
+        riskCard.classList.add('risk-red');
+    } else if (riskLevelLower === 'medium') {
+        riskCard.classList.add('risk-amber');
+    } else if (riskLevelLower === 'low') {
+        riskCard.classList.add('risk-green');
+    }
+    
+    const healthScore = Math.round(stats.health_score) || 0;
+    const healthScoreElement = document.getElementById('healthScore');
+    healthScoreElement.textContent = healthScore || '--';
+    
+    // Apply color coding based on health score
+    const healthCard = healthScoreElement.closest('.stat-card');
+    healthCard.classList.remove('health-red', 'health-amber', 'health-green');
+    
+    if (healthScore < 50) {
+        healthCard.classList.add('health-red');
+    } else if (healthScore >= 50 && healthScore <= 75) {
+        healthCard.classList.add('health-amber');
+    } else if (healthScore > 75) {
+        healthCard.classList.add('health-green');
+    }
     
     // Filter out N/A entries from question dodging
     const validQuestionDodging = (analysis.question_dodging || []).filter(item => 

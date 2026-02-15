@@ -309,12 +309,129 @@ select {
     background: var(--primary);
 }
 
+.stat-card.confidence-red {
+    background: rgba(255, 59, 48, 0.05);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.stat-card.confidence-red::before {
+    background: var(--accent);
+}
+
+.stat-card.confidence-red .stat-value {
+    color: var(--accent);
+}
+
+.stat-card.confidence-amber {
+    background: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.2);
+}
+
+.stat-card.confidence-amber::before {
+    background: var(--warning);
+}
+
+.stat-card.confidence-amber .stat-value {
+    color: var(--warning);
+}
+
+.stat-card.confidence-green {
+    background: rgba(52, 199, 89, 0.05);
+    border: 1px solid rgba(52, 199, 89, 0.2);
+}
+
+.stat-card.confidence-green::before {
+    background: var(--success);
+}
+
+.stat-card.confidence-green .stat-value {
+    color: var(--success);
+}
+
 .stat-card.risk::before {
     background: var(--warning);
 }
 
+.stat-card.risk-red {
+    background: rgba(255, 59, 48, 0.05);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.stat-card.risk-red::before {
+    background: var(--accent);
+}
+
+.stat-card.risk-red .stat-value {
+    color: var(--accent);
+}
+
+.stat-card.risk-amber {
+    background: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.2);
+}
+
+.stat-card.risk-amber::before {
+    background: var(--warning);
+}
+
+.stat-card.risk-amber .stat-value {
+    color: var(--warning);
+}
+
+.stat-card.risk-green {
+    background: rgba(52, 199, 89, 0.05);
+    border: 1px solid rgba(52, 199, 89, 0.2);
+}
+
+.stat-card.risk-green::before {
+    background: var(--success);
+}
+
+.stat-card.risk-green .stat-value {
+    color: var(--success);
+}
+
 .stat-card.health::before {
     background: var(--success);
+}
+
+.stat-card.health-red {
+    background: rgba(255, 59, 48, 0.05);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.stat-card.health-red::before {
+    background: var(--accent);
+}
+
+.stat-card.health-red .stat-value {
+    color: var(--accent);
+}
+
+.stat-card.health-amber {
+    background: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.2);
+}
+
+.stat-card.health-amber::before {
+    background: var(--warning);
+}
+
+.stat-card.health-amber .stat-value {
+    color: var(--warning);
+}
+
+.stat-card.health-green {
+    background: rgba(52, 199, 89, 0.05);
+    border: 1px solid rgba(52, 199, 89, 0.2);
+}
+
+.stat-card.health-green::before {
+    background: var(--success);
+}
+
+.stat-card.health-green .stat-value {
+    color: var(--success);
 }
 
 .stat-card:hover {
